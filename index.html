@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title>Y-Store Website</title>
+    <title>Y-Store</title>
     <style>
       /* Google Fonts Import Link */
       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -16,15 +16,15 @@
         height: 100vh;
         display: flex;
         justify-content: center;
-        background: #c1f7f5;
+        background: linear-gradient(135deg, #1a1a1a, #000000);
       }
       .nav-links {
         display: flex;
         align-items: center;
-        background: #fff;
+        background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
         padding: 20px 15px;
         border-radius: 12px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5); /* Outer glow */
         position: absolute;
         top: 20px;
       }
@@ -34,11 +34,16 @@
       }
       .nav-links li a {
         position: relative;
-        color: #333;
+        color: #fff;
         font-size: 20px;
         font-weight: 500;
         padding: 6px 0;
         text-decoration: none;
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+      }
+      .nav-links li a:hover {
+        color: #ff0000; /* Glowing red text on hover */
+        text-shadow: 0 0 8px #ff0000, 0 0 15px #ff3333;
       }
       .nav-links li a:before {
         content: '';
@@ -47,8 +52,9 @@
         left: 0;
         height: 3px;
         width: 0%;
-        background: #34efdf;
+        background: #ff0000; /* Neon red line */
         border-radius: 12px;
+        box-shadow: 0 0 8px #ff0000, 0 0 15px #ff3333; /* Glowing effect */
         transition: all 0.4s ease;
       }
       .nav-links li a:hover:before {
