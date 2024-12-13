@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
@@ -17,6 +16,7 @@
         display: flex;
         justify-content: center;
         background: linear-gradient(135deg, #1a1a1a, #000000);
+        background-color: #000000;
       }
       .nav-links {
         display: flex;
@@ -83,6 +83,51 @@
         transform: scaleX(1);
         transform-origin: left;
       }
+      /* Landing Page Styles */
+.landing-content {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+
+.landing-content h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.logo-box {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  display: inline-block;
+}
+
+.logo-box img {
+  max-width: 150px;
+  border-radius: 5px;
+}
+.language-switcher button {
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border: 1px solid #ff0000;
+  padding: 8px 15px;
+  margin: 0 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.language-switcher button:hover {
+  background: #ff0000;
+  color: #fff;
+}
+
     </style>
   </head>
   <body>
@@ -91,5 +136,29 @@
       <li class="upward"><a href="#">Store</a></li>
       <li class="forward"><a href="#">About</a></li>
     </ul>
+    <div class="language-switcher" style="position: absolute; top: 20px; right: 20px;">
+        <button onclick="switchToEnglish()" style="margin-right: 10px;">English</button>
+        <button onclick="switchToArabic()">عربي</button>
+      </div>
+      
+    <div class="landing-content">
+        <h1>Welcome to Y-Store</h1>
+        <div class="logo-box">
+          <img src="Logo.png" alt="Y-Store Logo">
+        </div>
+      </div>
+      <script>
+        function switchToArabic() {
+          document.querySelector(".landing-content h1").textContent = "مرحبًا بكم في Y-Store"; // Arabic heading
+          document.documentElement.lang = "ar";
+          document.documentElement.dir = "rtl";
+        }
+      
+        function switchToEnglish() {
+          document.querySelector(".landing-content h1").textContent = "Welcome to Y-Store"; // English heading
+          document.documentElement.lang = "en";
+          document.documentElement.dir = "ltr";
+        }
+      </script>            
   </body>
 </html>
