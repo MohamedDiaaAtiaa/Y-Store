@@ -1,443 +1,274 @@
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title>Y-Store</title>
-    <style>
-      /* Google Fonts Import Link */
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
-      }
-      .language-switcher button {
-        background: rgba(0, 0, 0, 0.8);
-        color: #fff;
-        border: 1px solid #ff0000;
-        padding: 8px 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.3s, color 0.3s, transform 0.2s;
-      }
-
-      .language-switcher button:hover {
-        background: #ff0000;
-        color: #000;
-        transform: scale(1.05);
-      }
-
-      /* Morphing Animation for Content */
-      .morph {
-        animation: morph 0.5s ease-in-out forwards;
-      }
-
-      @keyframes morph {
-        0% {
-          transform: scale(1) rotate(0deg);
-          opacity: 1;
-        }
-        50% {
-          transform: scale(1.1) rotate(3deg);
-          opacity: 0.5;
-        }
-        100% {
-          transform: scale(1) rotate(0deg);
-          opacity: 1;
-        }
-      }
-
-      body {
-        min-height: 100vh; /* Allow scrolling if content exceeds viewport */
-        display: block; /* Default block layout */
-        background: linear-gradient(135deg, #e2e2e2, #ffffff);
-        color: black;
-        background-color: white;
-      }
-      .nav-links {
-        display: flex;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.8);
-        padding: 20px 15px;
-        border-radius: 12px;
-        box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5);
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-      }
-      .nav-links li {
-        list-style: none;
-        margin: 0 12px;
-      }
-      .nav-links li a {
-        position: relative;
-        color: #fff;
-        font-size: 20px;
-        font-weight: 500;
-        padding: 6px 0;
-        text-decoration: none;
-        transition: color 0.3s ease, text-shadow 0.3s ease;
-      }
-      .nav-links li a:hover {
-        color: #ff0000;
-        text-shadow: 0 0 8px #ff0000, 0 0 15px #ff3333;
-      }
-      .landing-content {
-        text-align: center;
-        margin-top: 80px; /* Add margin to avoid navbar overlap */
-        color: #000000;
-      }
-      .landing-content h1 {
-        font-size: 3rem;
-        font-weight: 600;
-        margin-bottom: 20px;
-        text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-      }
-      .about-section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #ffffff, #d1d1d1);
-        padding: 100px 20px;
-        opacity: 0;
-        transform: translateY(100px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
-      }
-      .about-section.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .about-wrapper {
-        display: flex;
-        max-width: 1200px;
-        width: 100%;
-        gap: 40px;
-        align-items: center;
-      }
-      .about-content {
-        max-width: 600px;
-        color: #000000;
-      }
-      .about-heading {
-        font-size: 2.5rem;
-        font-weight: 600;
-        margin-bottom: 20px;
-        text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
-      }
-      .logo-box {
-        background: rgba(0, 0, 0, 0.7);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        display: inline-block;
-      }
-
-      .logo-box img {
-        max-width: 150px;
-        border-radius: 5px;
-      }
-
-      .language-switcher {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        display: flex;
-        gap: 10px;
-      }
-      .about-image img {
-  max-width: 400px; /* Adjust this value to make the image smaller */
-  width: 100%; /* Ensures the image doesn't exceed its container's width */
-  height: auto; /* Maintains aspect ratio */
-  border-radius: 5px; /* Optional: keeps the rounded corners */
-}
-.scroll-indicator {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  opacity: 1;
-  transition: opacity 0.5s ease;
+<head>
+<meta charset="UTF-8">
+<title>Y-Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-.scroll-indicator:hover {
-  background-color: #ff0000;
-}
-.store-section {
-  text-align: center;
-  padding: 50px 20px;
-  background: linear-gradient(135deg, #ffffff, #cecece);
-  color: rgb(0, 0, 0);
+/* Body and Background */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e2e2e2, #ffffff);
+  color: black;
 }
 
-.store-heading {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-}
-
-.store-categories {
+/* Navbar */
+.nav-links {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  align-items: center;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px 15px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5);
+  z-index: 1000;
+}
+.nav-links li {
+  list-style: none;
+  margin: 0 12px;
+}
+.nav-links li a {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+.nav-links li a:hover {
+  color: #ff0000;
+  text-shadow: 0 0 8px #ff0000, 0 0 15px #ff3333;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 5px;
+  width: 0;
+  background: rgb(196, 2, 2);
+  border-radius: 15px;
+  transition: width 0.2s;
+}
+.nav-links a:hover::after {
+  width: 100%;
 }
 
-.category {
+/* Language Switcher */
+.language-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+}
+.language-switcher button {
   background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border: 1px solid #ff0000;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+.language-switcher button:hover {
+  background: #ff0000;
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* Landing Section */
+.landing-content {
+  text-align: center;
+  margin-top: 100px;
+}
+.landing-content h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+.logo-box {
+  background: rgba(0, 0, 0, 0.7);
   padding: 20px;
   border-radius: 10px;
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-  text-align: center;
-  width: 150px;
+  display: inline-block;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
-
-.category:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px #ff0000;
-}
-
-.store-items {
-  text-align: center;
-  padding: 50px 20px;
-}
-
-.item-grid {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.item-card {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  color: #fff;
-  width: 200px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.item-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #00ff00;
-}
-
-.item-card img {
-  width: 100%;
-  height: auto;
+.logo-box img {
+  max-width: 150px;
   border-radius: 5px;
 }
 
-.item-description {
-  margin: 10px 0;
-  font-size: 1.2rem;
+/* About Section */
+.about-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #ffffff, #d1d1d1);
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+.about-section.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.about-content {
+  max-width: 600px;
+}
+.about-heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+.about-image img {
+  max-width: 400px;
+  border-radius: 5px;
+  object-fit: cover;
 }
 
-.item-price {
-  font-size: 1rem;
-  margin: 5px 0;
+/* Image Section */
+.image-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Change to 4 columns */
+  gap: 10px;
+  padding: 20px;
+}
+.image-section img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.image-section img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
 }
 
-.strike {
-  color: red;
-  text-decoration: line-through;
+/* Vertical Image */
+.vertical-image {
+  height: 800px; /* Ensures all vertical images have consistent height */
 }
 
-.discounted {
-  color: green;
+
+/* Horizontal Image */
+.horizontal-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
 }
+.horizontal-image img {
+  min-width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.horizontal-image .overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+.vertical-image{
+  min-height:650px;
+}
+</style>
+</head>
+<body>
+<!-- Navbar -->
+<ul class="nav-links">
+  <li><a href="#Home">Home</a></li>
+  <li><a href="#store">Store</a></li>
+  <li><a href="#about">About</a></li>
+</ul>
 
-    </style>
-  </head>
-  <body>
-    <ul class="nav-links">
-      <li><a href="#Home">Home</a></li>
-      <li><a href="#">Store</a></li>
-      <li><a href="#about">About</a></li>
-    </ul>
-    <div class="language-switcher">
-      <button onclick="switchToEnglish()">English</button>
-      <button onclick="switchToArabic()">عربي</button>
-    </div>
-    <div class="landing-content" id="Home">
-      <br><br><br><br><br><br>
-      <h1>Welcome to Y-Store</h1>
-      <br><br><br><br><br>
-      <div class="logo-box">
-        <img src="Logo.png" alt="Y-Store Logo">
-      </div>
-      <div class="scroll-indicator">
-        Scroll Down
-      </div>
-      
-    </div>
+<!-- Language Switcher -->
+<div class="language-switcher">
+  <button onclick="switchLanguage('en')">English</button>
+  <button onclick="switchLanguage('ar')">عربي</button>
+</div>
 
-    <div class="about-section" id="about">
-      <div class="about-wrapper">
-        <div class="about-content">
-          <h1 class="about-heading">About</h1>
-          <p>
-            We are a store that sells all types of items related to games. If you
-            want to check what we sell or want to buy, please check the store
-            section below. We are very reliable, never scam, and have many customer
-            reviews proving our truthfulness. Plus, our prices are incredibly cheap!
-          </p>
-        </div>
-        <div class="about-image">
-          <img src="about-image.png" alt="About Y-Store" style="size: 150px;border-radius: 10px;border-color: #ff0000;">
-        </div>
-      </div>
-    </div>
-    <div class="store-section" id="store">
-      <h1 class="store-heading">Store</h1>
-      <div class="store-categories">
-        <div class="category" onclick="navigateTo('ps-accounts')">
-          <h2>PS Accounts</h2>
-        </div>
-        <div class="category" onclick="navigateTo('pubg')">
-          <h2>PUBG</h2>
-        </div>
-        <div class="category" onclick="navigateTo('fortnite')">
-          <h2>Fortnite</h2>
-        </div>
-      </div>
-    </div>
-    
-    <div class="store-items" id="ps-accounts" style="display: none;">
-      <h1 class="store-heading">PS Accounts</h1>
-      <div class="item-grid">
-        <div class="item-card">
-          <img src="ps-item1.jpg" alt="PS Account 1">
-          <p class="item-description">PS Account Level 50</p>
-          <p class="item-price"><span class="strike">$50</span> <span class="discounted">$40</span></p>
-        </div>
-        <div class="item-card">
-          <img src="ps-item2.jpg" alt="PS Account 2">
-          <p class="item-description">PS Account Level 20</p>
-          <p class="item-price">$20</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="store-items" id="pubg" style="display: none;">
-      <h1 class="store-heading">PUBG</h1>
-      <div class="item-grid">
-        <div class="item-card">
-          <img src="pubg-item1.jpg" alt="PUBG Item 1">
-          <p class="item-description">PUBG Elite Pass</p>
-          <p class="item-price"><span class="strike">$25</span> <span class="discounted">$15</span></p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="store-items" id="fortnite" style="display: none;">
-      <h1 class="store-heading">Fortnite</h1>
-      <div class="item-grid">
-        <div class="item-card">
-          <img src="fortnite-item1.jpg" alt="Fortnite Item 1">
-          <p class="item-description">Fortnite Skin Pack</p>
-          <p class="item-price">$30</p>
-        </div>
-      </div>
-    </div>
-    
-    <script>
-      function navigateTo(sectionId) {
-        // Hide all store items
-        const allSections = document.querySelectorAll(".store-items");
-        allSections.forEach((section) => {
-          section.style.display = "none";
-        });
-    
-        // Show the selected section
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-          targetSection.style.display = "block";
-        }
-      }
-    </script>
-    
+<!-- Landing Content -->
+<div class="landing-content" id="Home">
+  <h1>Welcome to Y-Store</h1>
+  <div class="logo-box">
+    <img src="Logo.png" alt="Y-Store Logo">
+  </div>
+</div>
+
+<!-- About Section -->
+<div class="about-section" id="about">
+  <div class="about-content">
+    <h1 class="about-heading">About</h1>
+    <p>            We are a store that sells all types of items related to games. If you
+      want to check what we sell or want to buy, please check the store
+      section below. We are very reliable, never scam, and have many customer
+      reviews proving our truthfulness. Plus, our prices are incredibly cheap!</p>
+  </div>
+  <div class="about-image">
+    <img src="about-image.png" alt="About Y-Store">
+  </div>
+</div>
+
+<!-- Image Section -->
+ <h1 style="text-align: center;" id="store">STORE</h1>
+<div class="image-section">
+  <a href="fortnite.html"><img src="vertical1.png" class="vertical-image" alt="Image 1"></a>
+  <a href="PUBG.html"><img src="vertical2.png" class="vertical-image" alt="Image 2"></a>
+  <a href="PS.html"><img src="vertical3.png" class="vertical-image" alt="Image 3"></a>
+  <a href="other.html"><img src="vertical4.png" class="vertical-image" alt="Image 3"></a>
+</div>
+
 <script>
-  function switchToArabic() {
-    const landingText = document.querySelector(".landing-content h1");
-    const aboutHeading = document.querySelector(".about-heading");
-    const aboutContent = document.querySelector(".about-content p");
+// Switch Language
+function switchLanguage(lang) {
+  const text = {
+    en: {
+      heading: "Welcome to Y-Store",
+      aboutHeading: "About",
+      aboutContent: "We are a store that sells all types of items related to games...",
+    },
+    ar: {
+      heading: "مرحبًا بكم في Y-Store",
+      aboutHeading: "حول",
+      aboutContent: "نحن متجر يبيع جميع أنواع العناصر المتعلقة بالألعاب. إذا كنت تريد التحقق مما نبيعه أو ترغب في شرائه، فيرجى مراجعة قسم المتجر أدناه. نحن موثوقون للغاية، لا نخدع أبدًا ولدينا العديد من تقييمات العملاء التي تثبت صدقنا. بالإضافة إلى ذلك، أسعارنا رخيصة للغاية!",
+    },
+  };
 
-    landingText.classList.add("morph");
-    aboutHeading.classList.add("morph");
-    aboutContent.classList.add("morph");
+  const content = text[lang];
+  document.querySelector(".landing-content h1").textContent = content.heading;
+  document.querySelector(".about-heading").textContent = content.aboutHeading;
+  document.querySelector(".about-content p").textContent = content.aboutContent;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+}
 
-    setTimeout(() => {
-      landingText.textContent = "مرحبًا بكم في Y-Store";
-      aboutHeading.textContent = "حول";
-      aboutContent.textContent =
-        "نحن متجر يبيع جميع أنواع العناصر المتعلقة بالألعاب. إذا كنت تريد التحقق مما نبيعه أو ترغب في شرائه، فيرجى مراجعة قسم المتجر أدناه. نحن موثوقون للغاية، لا نخدع أبدًا ولدينا العديد من تقييمات العملاء التي تثبت صدقنا. بالإضافة إلى ذلك، أسعارنا رخيصة للغاية!";
-      document.documentElement.lang = "ar";
-      document.documentElement.dir = "rtl";
-
-      landingText.classList.remove("morph");
-      aboutHeading.classList.remove("morph");
-      aboutContent.classList.remove("morph");
-    }, 500);
+// About Section Animation
+document.addEventListener("scroll", () => {
+  const aboutSection = document.querySelector(".about-section");
+  if (aboutSection.getBoundingClientRect().top < window.innerHeight / 1.3) {
+    aboutSection.classList.add("active");
   }
-
-  function switchToEnglish() {
-    const landingText = document.querySelector(".landing-content h1");
-    const aboutHeading = document.querySelector(".about-heading");
-    const aboutContent = document.querySelector(".about-content p");
-
-    landingText.classList.add("morph");
-    aboutHeading.classList.add("morph");
-    aboutContent.classList.add("morph");
-
-    setTimeout(() => {
-      landingText.textContent = "Welcome to Y-Store";
-      aboutHeading.textContent = "About";
-      aboutContent.textContent =
-        "We are a store that sells all types of items related to games. If you want to check what we sell or want to buy, please check the store section below. We are very reliable, never scam, and have many customer reviews proving our truthfulness. Plus, our prices are incredibly cheap!";
-      document.documentElement.lang = "en";
-      document.documentElement.dir = "ltr";
-
-      landingText.classList.remove("morph");
-      aboutHeading.classList.remove("morph");
-      aboutContent.classList.remove("morph");
-    }, 500);
-  }
-
-  // Remove the code block for scrolling behavior
-  document.addEventListener("scroll", () => {
-    const aboutSection = document.querySelector(".about-section");
-    const sectionPosition = aboutSection.getBoundingClientRect().top;
-    const screenPosition = window.innerHeight / 1.3;
-
-    if (sectionPosition < screenPosition) {
-      aboutSection.classList.add("active");
-    }
-  });
-
-  // Get the scroll indicator element
-  const scrollIndicator = document.querySelector('.scroll-indicator');
-
-  // Listen for the scroll event
-  window.addEventListener('scroll', function () {
-    if (window.scrollY > 50) {
-      scrollIndicator.style.opacity = '0';
-      setTimeout(() => {
-        scrollIndicator.style.display = 'none';
-      }, 500); // Wait for opacity transition to finish before hiding the element
-    }
-  });
+});
 </script>
-
-  </body>
+</body>
 </html>
